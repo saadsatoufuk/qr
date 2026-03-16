@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, ChevronUp } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import { useCartStore } from '@/lib/cartStore';
 import { UI_TEXT } from '@/lib/orderHelpers';
 
@@ -21,29 +21,43 @@ export default function CartBar({ currencySymbol, onOpen }: CartBarProps) {
     <AnimatePresence>
       {count > 0 && (
         <motion.div
-          initial={{ y: 100 }} animate={{ y: 0 }} exit={{ y: 100 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="fixed bottom-0 left-0 right-0 z-30 pb-safe max-w-[460px] mx-auto px-4 pb-4"
+          initial={{ y: 80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 80, opacity: 0 }}
+          transition={{ type: 'spring', damping: 22, stiffness: 260 }}
+          className="fixed bottom-6 left-0 right-0 z-30 flex justify-center px-5"
           dir="rtl"
         >
-          <button
+          <motion.button
+            whileTap={{ scale: 0.96 }}
             onClick={onOpen}
-            className="w-full bg-[var(--brand-color)] text-[#0C0A08] rounded-2xl px-5 py-4 flex items-center justify-between shadow-2xl shadow-[var(--brand-color)]/20 hover:opacity-95 transition-opacity"
+            className="
+              w-full max-w-[420px] h-14 rounded-2xl
+              bg-[var(--brand-color)] text-[#0C0A08]
+              flex items-center justify-between px-6
+              shadow-2xl shadow-[var(--brand-color)]/30
+              hover:brightness-110 transition-all duration-200
+              font-arabic
+            "
           >
+            {/* Right side: icon + label */}
             <div className="flex items-center gap-3">
               <div className="relative">
-                <ShoppingBag size={20} strokeWidth={2} />
+                <ShoppingBag size={20} strokeWidth={2.2} />
                 <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-[#0C0A08] text-[var(--brand-color)] text-[10px] font-bold flex items-center justify-center">
                   {count}
                 </span>
               </div>
-              <span className="font-semibold text-sm font-arabic">{UI_TEXT.yourOrder}</span>
+              <span className="font-bold text-[15px]">
+                {UI_TEXT.continueOrder}
+              </span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold font-cormorant text-lg">{subtotal.toFixed(0)} {currencySymbol}</span>
-              <ChevronUp size={18} />
-            </div>
-          </button>
+
+            {/* Left side: price */}
+            <span className="font-bold font-cormorant text-lg">
+              {subtotal.toFixed(0)} {currencySymbol}
+            </span>
+          </motion.button>
         </motion.div>
       )}
     </AnimatePresence>

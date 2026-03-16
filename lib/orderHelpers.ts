@@ -53,6 +53,7 @@ export const UI_TEXT = {
   specialRequests: 'طلبات خاصة (اختياري)',
   addToOrder: 'أضف للطلب',
   yourOrder: 'طلبك',
+  continueOrder: 'متابعة الطلب',
   viewOrder: 'عرض الطلب',
   emptyCart: 'لم تضف أي صنف بعد',
   subtotal: 'المجموع',

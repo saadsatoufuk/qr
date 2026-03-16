@@ -7,12 +7,11 @@ import { UI_TEXT } from '@/lib/orderHelpers';
 interface ItemCardProps {
   item: any;
   onTap: () => void;
-  onAdd: () => void;
   currencySymbol: string;
   index: number;
 }
 
-export default function ItemCard({ item, onTap, onAdd, currencySymbol, index }: ItemCardProps) {
+export default function ItemCard({ item, onTap, currencySymbol, index }: ItemCardProps) {
   const isSoldOut = item.badge === 'sold_out' || !item.isAvailable;
 
   const badgeLabels: Record<string, { label: string; cls: string }> = {
@@ -81,7 +80,7 @@ export default function ItemCard({ item, onTap, onAdd, currencySymbol, index }: 
           {!isSoldOut ? (
             <motion.button
               whileTap={{ scale: 0.88 }}
-              onClick={(e) => { e.stopPropagation(); onAdd(); }}
+              onClick={(e) => { e.stopPropagation(); onTap(); }}
               className="w-9 h-9 rounded-full bg-[var(--brand-color)] flex items-center justify-center
                          shadow-lg shadow-[var(--brand-color)]/25 active:shadow-none transition-shadow"
             >

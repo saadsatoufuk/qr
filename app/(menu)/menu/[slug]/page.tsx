@@ -29,7 +29,6 @@ export default function MenuPage({ params }: { params: { slug: string } }) {
   const [success, setSuccess] = useState<{ orderId: string; orderNumber: string; wait: number } | null>(null);
 
   const setTable = useCartStore((s) => s.setTable);
-  const addItem = useCartStore((s) => s.addItem);
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   const fetchMenu = useCallback(async () => {
@@ -227,7 +226,6 @@ export default function MenuPage({ params }: { params: { slug: string } }) {
                     <ItemCard
                       key={item._id} item={item} index={idx} currencySymbol={cs}
                       onTap={() => setSelectedItem(item)}
-                      onAdd={() => addItem({ itemId: item._id, name: item.nameAr || item.name, price: item.offerPrice || item.price, image: item.image || '' })}
                     />
                   ))}
                 </div>
