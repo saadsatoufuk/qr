@@ -20,7 +20,9 @@ export async function PATCH(
 
     // Regenerate QR if table number changed
     if (body.tableNumber) {
-      const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+      const host = request.headers.get('host') || 'localhost:3000';
+      const protocol = request.headers.get('x-forwarded-proto') || (host.includes('localhost') ? 'http' : 'https');
+      const baseUrl = `${protocol}://${host}`;
       const qrTargetUrl = `${baseUrl}/menu/${slug}?table=${body.tableNumber}`;
       body.qrCodeDataUrl = await generateQRCode(qrTargetUrl);
       body.qrTargetUrl = qrTargetUrl;

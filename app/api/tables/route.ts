@@ -31,7 +31,9 @@ export async function POST(request: NextRequest) {
     const restaurantId = (session.user as any).restaurantId;
     const slug = (session.user as any).restaurantSlug;
 
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const host = request.headers.get('host') || 'localhost:3000';
+    const protocol = request.headers.get('x-forwarded-proto') || (host.includes('localhost') ? 'http' : 'https');
+    const baseUrl = `${protocol}://${host}`;
     const qrTargetUrl = `${baseUrl}/menu/${slug}?table=${body.tableNumber}`;
     const qrCodeDataUrl = await generateQRCode(qrTargetUrl);
 
