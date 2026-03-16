@@ -38,19 +38,20 @@ export default function ItemCard({ item, onTap, currencySymbol, index }: ItemCar
         ${isSoldOut ? 'opacity-50 pointer-events-none' : ''}
       `}
     >
-      {/* Badge */}
-      {badge && (
-        <div className={`absolute top-3 right-3 text-[10px] font-bold px-2 py-0.5 rounded-full font-arabic ${badge.cls}`}>
-          {badge.label}
-        </div>
-      )}
-
       {/* Text content — first in DOM = right side in RTL */}
       <div className="flex-1 min-w-0 pt-1 flex flex-col justify-between min-h-[80px]">
         <div>
-          <h3 className="text-[15px] font-semibold text-[#F5F0EA] leading-snug mb-1 pl-12 font-arabic">
-            {item.nameAr || item.name}
-          </h3>
+          {/* Item name + badge in same row */}
+          <div className="flex items-center flex-wrap gap-1.5 mb-1">
+            <h3 className="text-[15px] font-semibold text-[#F5F0EA] leading-snug font-arabic">
+              {item.nameAr || item.name}
+            </h3>
+            {badge && (
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full font-arabic whitespace-nowrap ${badge.cls}`}>
+                {badge.label}
+              </span>
+            )}
+          </div>
           {(item.descriptionAr || item.description) && (
             <p className="text-[12px] text-[#9B9189] line-clamp-2 leading-relaxed mb-2 font-arabic">
               {item.descriptionAr || item.description}

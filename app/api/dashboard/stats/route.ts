@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import dbConnect from '@/lib/mongodb';
 import Order from '@/models/Order';
 import Table from '@/models/Table';
+import { Types } from 'mongoose';
 
 export async function GET() {
   try {
@@ -25,7 +26,7 @@ export async function GET() {
       Order.aggregate([
         {
           $match: {
-            restaurantId: { $eq: new (require('mongoose').Types.ObjectId)(restaurantId) },
+            restaurantId: { $eq: new Types.ObjectId(restaurantId) },
             createdAt: { $gte: startOfDay },
             status: { $ne: 'cancelled' },
           },
